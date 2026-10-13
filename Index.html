@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gershwin Mubaiwa — Founder & Developer</title>
+<link rel="icon" type="image/png" href="gecko.png">
+<style>
+:root{
+  --bg:#070b14; --card:rgba(18,26,42,.65);
+  --border:rgba(120,150,200,.14); --txt:#e8eef8; --dim:#7a8ba8;
+  --accent:#00d4aa; --accent2:#00b4d8; --gold:#ffb52e; --purple:#9d6fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);
+  color:var(--txt);line-height:1.6;overflow-x:hidden;position:relative}
+
+/* Tiled gecko pattern */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url('gecko.png');
+  background-size:110px 110px;
+  background-repeat:repeat;
+  filter:invert(1);
+  mix-blend-mode:screen;
+  opacity:0.04;
+  pointer-events:none;
+  z-index:0;
+}
+
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.22;
+  pointer-events:none;z-index:0;animation:drift 26s ease-in-out infinite}
+.o1{width:500px;height:500px;background:var(--accent);top:-180px;left:-180px}
+.o2{width:420px;height:420px;background:var(--purple);bottom:10%;right:-150px;animation-delay:-8s}
+.o3{width:360px;height:360px;background:var(--accent2);top:50%;left:40%;animation-delay:-16s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(70px,60px) scale(1.15)}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(7,11,20,.72);border-bottom:1px solid var(--border);padding:14px 24px}
+.navrow{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo-mark{width:34px;height:34px;flex-shrink:0;object-fit:contain;
+  filter:invert(1);mix-blend-mode:screen}
+.logo-text{font-weight:800;font-size:16px;letter-spacing:-.3px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.navlinks{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.navlinks a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;
+  padding:8px 12px;border-radius:8px;transition:.2s}
+.navlinks a:hover{color:var(--txt);background:rgba(0,212,170,.08)}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:120px 24px 60px;position:relative;z-index:1;text-align:center}
+.hero-inner{max-width:820px}
+.status{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:30px;
+  font-size:12.5px;font-weight:600;background:rgba(0,212,170,.1);
+  border:1px solid rgba(0,212,170,.3);color:var(--accent);margin-bottom:28px}
+.status .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+.hero-logo{
+  width:150px;height:150px;
+  margin:0 auto 20px;display:block;object-fit:contain;
+  filter:invert(1) drop-shadow(0 0 45px rgba(0,212,170,.5));
+  mix-blend-mode:screen;
+  animation:floaty 5s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+h1.name{font-size:clamp(40px,7vw,76px);font-weight:800;letter-spacing:-2.5px;
+  line-height:1.05;margin-bottom:18px;
+  background:linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tagline{font-size:clamp(16px,2.1vw,19px);color:var(--dim);max-width:640px;
+  margin:0 auto 40px;line-height:1.75}
+.tagline strong{color:var(--txt);font-weight:600}
+.tagline .mantra{display:block;margin-top:14px;color:var(--accent);
+  font-weight:700;font-style:italic;font-size:clamp(18px,2.4vw,22px)}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;
+  font-weight:600;font-size:14.5px;text-decoration:none;
+  transition:.25s cubic-bezier(.4,0,.2,1);cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#02120e;box-shadow:0 8px 24px rgba(0,212,170,.25)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,212,170,.35)}
+.btn-ghost{background:rgba(120,150,200,.08);color:var(--txt);
+  border:1px solid var(--border);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(0,212,170,.1);border-color:var(--accent);transform:translateY(-3px)}
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  color:var(--dim);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:600;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,8px);opacity:1}}
+
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+.sec-label{font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:14px}
+.sec-title{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-1px;
+  margin-bottom:18px;line-height:1.15}
+.sec-sub{color:var(--dim);font-size:16px;max-width:620px;margin-bottom:48px;line-height:1.75}
+
+.mission-block{text-align:center;padding:60px 32px;border-radius:24px;
+  background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(157,111,255,.05));
+  border:1px solid rgba(0,212,170,.25);backdrop-filter:blur(16px)}
+.mission-block .m-label{font-size:11.5px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:18px}
+.mission-block .m-text{font-size:clamp(19px,2.6vw,26px);font-weight:600;
+  line-height:1.55;max-width:780px;margin:0 auto;letter-spacing:-.3px}
+.mission-block .m-text .hl{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+.about-text p{margin-bottom:18px;color:#c8d3e3;font-size:15.5px;line-height:1.85}
+.about-text p:last-child{margin-bottom:0}
+.about-text strong{color:var(--txt);font-weight:600}
+.stats{display:flex;flex-direction:column;gap:14px}
+.stat-card{background:var(--card);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:16px;padding:22px;transition:.3s}
+.stat-card:hover{border-color:rgba(0,212,170,.3);transform:translateX(6px)}
+.stat-card .num{font-size:32px;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.stat-card .lbl{color:var(--dim);font-size:12.5px;margin-top:6px;
+  text-transform:uppercase;letter-spacing:1.2px;font-weight:600}
+
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.project{background:var(--card);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:20px;padding:28px;
+  transition:.35s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.project::before{content:'';position:absolute;inset:0;opacity:0;
+  background:radial-gradient(circle at top right,rgba(0,212,170,.12),transparent 60%);
+  transition:.35s;pointer-events:none}
+.project:hover{transform:translateY(-6px);border-color:rgba(0,212,170,.4);
+  box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.project:hover::before{opacity:1}
+.p-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;position:relative;z-index:1}
+.p-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:26px;
+  background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(0,180,216,.08));
+  border:1px solid rgba(0,212,170,.25)}
+.p-name{font-size:19px;font-weight:700;letter-spacing:-.3px}
+.p-tag{font-size:12px;color:var(--accent);font-weight:600;margin-top:2px}
+.p-desc{color:#b8c4d6;font-size:14.5px;line-height:1.75;margin-bottom:16px;position:relative;z-index:1}
+.p-impact{font-size:13.5px;color:var(--accent);font-weight:600;font-style:italic;
+  margin-bottom:18px;padding-left:14px;border-left:2px solid rgba(0,212,170,.4);
+  line-height:1.6;position:relative;z-index:1}
+.p-tech{display:flex;gap:7px;flex-wrap:wrap;position:relative;z-index:1}
+.tech-pill{padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;
+  background:rgba(120,150,200,.1);border:1px solid var(--border);color:var(--dim)}
+.p-status{position:absolute;top:20px;right:20px;font-size:10.5px;padding:4px 11px;
+  border-radius:20px;font-weight:700;letter-spacing:.5px;
+  background:rgba(0,212,170,.12);color:var(--accent);
+  border:1px solid rgba(0,212,170,.3);z-index:2}
+.p-status.personal{background:rgba(255,181,46,.12);color:var(--gold);border-color:rgba(255,181,46,.3)}
+
+.awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.award{background:linear-gradient(135deg,rgba(255,181,46,.08),rgba(255,107,157,.04));
+  border:1px solid rgba(255,181,46,.25);border-radius:16px;padding:22px;
+  display:flex;gap:16px;align-items:flex-start;transition:.3s;backdrop-filter:blur(16px)}
+.award:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(255,181,46,.1)}
+.award-icon{font-size:30px;flex-shrink:0}
+.award-title{font-weight:700;font-size:15px;margin-bottom:5px}
+.award-desc{font-size:13.5px;color:var(--dim);line-height:1.6}
+
+.grades{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:36px}
+.grade{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);
+  border-radius:16px;padding:24px;text-align:center;transition:.3s}
+.grade:hover{border-color:rgba(0,212,170,.4);transform:translateY(-4px)}
+.grade .g-letter{font-size:44px;font-weight:800;letter-spacing:-2px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.grade .g-subj{font-size:13px;color:var(--dim);margin-top:8px;font-weight:600;
+  text-transform:uppercase;letter-spacing:1px}
+
+.books-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.book{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;transition:.3s;display:flex;gap:14px;align-items:flex-start}
+.book:hover{border-color:rgba(0,212,170,.4);transform:translateY(-3px)}
+.book-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.book .b-title{font-weight:700;font-size:14.5px;margin-bottom:3px}
+.book .b-author{font-size:12.5px;color:var(--dim)}
+.book.in-progress{border-color:rgba(255,181,46,.3)}
+.book.in-progress .book-icon{filter:drop-shadow(0 0 8px rgba(255,181,46,.5))}
+.book .b-progress{font-size:11px;color:var(--gold);font-weight:600;
+  text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.skill-group{background:var(--card);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:16px;padding:22px;transition:.3s}
+.skill-group:hover{border-color:rgba(0,212,170,.3);transform:translateY(-3px)}
+.skill-group h4{font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;font-weight:700}
+.skill-list{display:flex;flex-wrap:wrap;gap:8px}
+.skill{padding:6px 13px;border-radius:9px;font-size:12.5px;font-weight:500;
+  background:rgba(120,150,200,.08);border:1px solid var(--border);color:#c8d3e3}
+
+.contact{text-align:center;padding:80px 32px;border-radius:24px;
+  background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(157,111,255,.05));
+  border:1px solid rgba(0,212,170,.25);margin-bottom:60px;backdrop-filter:blur(16px)}
+.contact h2{font-size:clamp(26px,4vw,38px);font-weight:800;margin-bottom:14px;letter-spacing:-1px}
+.contact p{color:var(--dim);font-size:15.5px;margin-bottom:32px;max-width:520px;
+  margin-left:auto;margin-right:auto;line-height:1.75}
+
+footer{text-align:center;padding:40px 24px;color:var(--dim);font-size:13px;
+  border-top:1px solid var(--border);position:relative;z-index:1}
+footer .footer-brand{font-weight:800;letter-spacing:-.3px;font-size:15px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+footer .footer-mission{margin-top:14px;color:#b8c4d6;font-size:13.5px;
+  max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;font-style:italic}
+footer .mantra{margin-top:18px;color:var(--accent);font-weight:700;
+  font-style:italic;font-size:15px;letter-spacing:.3px}
+footer .mantra2{margin-top:6px;color:var(--dim);font-weight:600;
+  font-size:12.5px;letter-spacing:.3px}
+
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  .navlinks{display:none}
+  section{padding:60px 0}
+  .hero{padding:100px 20px 40px}
+  .btn{padding:12px 22px;font-size:13.5px}
+  .hero-logo{width:110px;height:110px}
+  body::before{background-size:90px 90px}
+}
+</style>
+</head>
+<body>
+
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="orb o3"></div>
+
+<nav>
+  <div class="navrow">
+    <img class="logo-mark" src="gecko.png" alt="Geko">
+    <div class="logo-text">Gershwin Mubaiwa</div>
+    <div class="navlinks">
+      <a href="#mission">Mission</a>
+      <a href="#work">Work</a>
+      <a href="#awards">Recognition</a>
+      <a href="#books">Reading</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="gecko.png" alt="Geko">
+    <div class="status"><span class="dot"></span>Building in Zimbabwe · Open to opportunities</div>
+    <h1 class="name">Gershwin Mubaiwa</h1>
+    <p class="tagline">
+      I build technology for the people most systems ignore.
+      <strong>Fintech, bookkeeping, and tools for Africa's informal economy.</strong>
+      <span class="mantra">Climb anyway.</span>
+    </p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">See my work →</a>
+      <a href="https://www.linkedin.com/in/gershwin-mubaiwa-ab3542361/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </div>
+</div>
+
+<section id="mission">
+  <div class="wrap">
+    <div class="mission-block">
+      <div class="m-label">The Geko Mission</div>
+      <div class="m-text">
+        To build the financial and technological infrastructure that makes
+        <span class="hl">Africa's informal economy</span> visible, bankable,
+        and impossible to ignore.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">About</div>
+    <h2 class="sec-title">Seventeen. Building anyway.</h2>
+    <p class="sec-sub">No permissions asked. No shortcut taken. Just products shipped.</p>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a 17-year-old founder and developer from Harare, Zimbabwe. I started building
+          in early 2026 and haven't stopped. Three working products. All shipped between school terms.
+        </p>
+        <p>
+          My focus is the <strong>informal economy</strong> — the traders, vendors, and small
+          business owners who power Zimbabwe's real economy yet are completely ignored by
+          modern financial technology. My current flagship product, <strong>GekoBooks</strong>,
+          lets them track profit, inventory, and build a real credit identity using nothing
+          but WhatsApp.
+        </p>
+        <p>
+          I was the top student in Zimbabwe for Cambridge IGCSE English Literature. I won the
+          national BancABC Money Week quiz. I'm predicted <strong>A* A* A</strong> at A-Level
+          in Accounting, Business, and IT.
+        </p>
+        <p>
+          I'm heading toward <strong>ACCA</strong>, then <strong>CISA</strong>, then
+          <strong>CFA</strong> — building the qualifications to back the products I make.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><div class="num">3</div><div class="lbl">Products Built</div></div>
+        <div class="stat-card"><div class="num">810+</div><div class="lbl">LinkedIn Network</div></div>
+        <div class="stat-card"><div class="num">10</div><div class="lbl">IGCSE Passes</div></div>
+        <div class="stat-card"><div class="num">#1</div><div class="lbl">Zimbabwe — IGCSE English Lit</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-label">Selected Work</div>
+    <h2 class="sec-title">Things I've built</h2>
+    <p class="sec-sub">Every product below is real, functional, and was built solo.</p>
+
+    <div class="projects">
+
+      <div class="project">
+        <div class="p-status">Built</div>
+        <div class="p-head">
+          <div class="p-icon">🐊</div>
+          <div>
+            <div class="p-name">GekoBooks</div>
+            <div class="p-tag">WhatsApp Fintech for Informal Traders</div>
+          </div>
+        </div>
+        <p class="p-desc">
+          A WhatsApp-based bookkeeping platform that helps Zimbabwe's informal traders
+          record purchases, sales, expenses, and loans — all by sending simple messages.
+          Automatically tracks profit, balance, inventory, and generates AI-driven business
+          insights. Includes a credit-scoring engine for micro-lenders and a web dashboard.
+        </p>
+        <div class="p-tech">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Flask</span>
+          <span class="tech-pill">Twilio</span>
+          <span class="tech-pill">SQLite</span>
+          <span class="tech-pill">NLP</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="p-status">Built</div>
+        <div class="p-head">
+          <div class="p-icon">🎨</div>
+          <div>
+            <div class="p-name">TrueForm</div>
+            <div class="p-tag">3D Virtual Fitting Room</div>
+          </div>
+        </div>
+        <p class="p-desc">
+          A 3D virtual fitting room with AI styling. Users dress their own avatar before
+          buying clothes online, compare prices across retailers, and receive complete
+          outfit recommendations based on personal style. Includes an AI fashion and
+          purchase-budgeting assistant.
+        </p>
+        <div class="p-tech">
+          <span class="tech-pill">3D Rendering</span>
+          <span class="tech-pill">AI Styling</span>
+          <span class="tech-pill">Recommendation Engine</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="p-status">Built</div>
+        <div class="p-head">
+          <div class="p-icon">🧠</div>
+          <div>
+            <div class="p-name">Stratum</div>
+            <div class="p-tag">AI Boardroom Simulator</div>
+          </div>
+        </div>
+        <p class="p-desc">
+          An AI-powered business strategy simulator that lets founders and students
+          stress-test ideas, model decisions, and get boardroom-level strategic feedback.
+          Built to compress years of business intuition into a single interactive tool.
+        </p>
+        <div class="p-tech">
+          <span class="tech-pill">AI</span>
+          <span class="tech-pill">Business Simulation</span>
+          <span class="tech-pill">Strategy</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="p-status personal">Personal</div>
+        <div class="p-head">
+          <div class="p-icon">📊</div>
+          <div>
+            <div class="p-name">Geko Tracker</div>
+            <div class="p-tag">Offline Productivity Command Centre</div>
+          </div>
+        </div>
+        <p class="p-desc">
+          A fully offline, single-file life-tracking app I built for myself. Tracks
+          Cambridge syllabus progress, gym sessions, personal records, habits, focus time,
+          goals, money, and reading. Features a Vision Board, XP levelling system, daily
+          Bible verses, and a weekly-focus review cycle. No cloud. No accounts. No subscription.
+        </p>
+        <p class="p-impact">
+          Built in a weekend for myself. Within weeks it changed how I worked —
+          turning scattered effort into visible, daily, measurable progress.
+        </p>
+        <div class="p-tech">
+          <span class="tech-pill">HTML</span>
+          <span class="tech-pill">CSS</span>
+          <span class="tech-pill">JavaScript</span>
+          <span class="tech-pill">localStorage</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="wrap">
+    <div class="sec-label">Recognition</div>
+    <h2 class="sec-title">Wins worth mentioning</h2>
+    <p class="sec-sub">National and academic achievements that shaped how I approach problems.</p>
+
+    <div class="awards">
+      <div class="award">
+        <div class="award-icon">🏆</div>
+        <div>
+          <div class="award-title">Top in Zimbabwe — IGCSE English Literature</div>
+          <div class="award-desc">Ranked first nationally in the Cambridge IGCSE English Literature exam.</div>
+        </div>
+      </div>
+      <div class="award">
+        <div class="award-icon">🥇</div>
+        <div>
+          <div class="award-title">BancABC Money Week Quiz — 1st Place</div>
+          <div class="award-desc">Won the national finance and financial literacy competition.</div>
+        </div>
+      </div>
+      <div class="award">
+        <div class="award-icon">📊</div>
+        <div>
+          <div class="award-title">Top in Business & IT — Stream Award</div>
+          <div class="award-desc">Recognised at prize-giving for topping both Business and IT in my Lower Sixth stream.</div>
+        </div>
+      </div>
+      <div class="award">
+        <div class="award-icon">📈</div>
+        <div>
+          <div class="award-title">Capital Markets Quiz — 2nd Place</div>
+          <div class="award-desc">Placed second in the pool at the national Capital Markets competition.</div>
+        </div>
+      </div>
+      <div class="award">
+        <div class="award-icon">📚</div>
+        <div>
+          <div class="award-title">10 IGCSE Passes</div>
+          <div class="award-desc">Full Cambridge IGCSE certificate with strong marks across all subjects.</div>
+        </div>
+      </div>
+      <div class="award">
+        <div class="award-icon">⭐</div>
+        <div>
+          <div class="award-title">Sub-Prefect & Class Monitor</div>
+          <div class="award-desc">Selected for leadership roles at St. John's Emerald Hill.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:60px">Predicted A-Levels</div>
+    <h2 class="sec-title" style="font-size:26px">Where I'm headed</h2>
+    <div class="grades">
+      <div class="grade"><div class="g-letter">A*</div><div class="g-subj">Accounting</div></div>
+      <div class="grade"><div class="g-letter">A*</div><div class="g-subj">Business</div></div>
+      <div class="grade"><div class="g-letter">A</div><div class="g-subj">Information Technology</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="books">
+  <div class="wrap">
+    <div class="sec-label">Reading</div>
+    <h2 class="sec-title">What I'm studying</h2>
+    <p class="sec-sub">Books that shape how I think — not just about money, but about discipline, learning, and life.</p>
+
+    <div class="books-grid">
+      <div class="book">
+        <div class="book-icon">💰</div>
+        <div><div class="b-title">Rich Dad Poor Dad</div><div class="b-author">Robert Kiyosaki</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">📈</div>
+        <div><div class="b-title">The Intelligent Investor</div><div class="b-author">Benjamin Graham</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">🛤️</div>
+        <div><div class="b-title">The Simple Path to Wealth</div><div class="b-author">JL Collins</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">🏘️</div>
+        <div><div class="b-title">The Millionaire Next Door</div><div class="b-author">Stanley & Danko</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">💎</div>
+        <div><div class="b-title">The Psychology of Money</div><div class="b-author">Morgan Housel</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">🧠</div>
+        <div><div class="b-title">Think and Grow Rich</div><div class="b-author">Napoleon Hill</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">🤝</div>
+        <div><div class="b-title">How to Sell</div><div class="b-author">Joe Girard</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">⚡</div>
+        <div><div class="b-title">Atomic Habits</div><div class="b-author">James Clear</div></div>
+      </div>
+      <div class="book">
+        <div class="book-icon">🎓</div>
+        <div><div class="b-title">Learning How to Learn</div><div class="b-author">Barbara Oakley</div></div>
+      </div>
+      <div class="book in-progress">
+        <div class="book-icon">🏛️</div>
+        <div><div class="b-title">The Daily Stoic</div><div class="b-author">Ryan Holiday</div><div class="b-progress">In progress</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">Capabilities</div>
+    <h2 class="sec-title">What I work with</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="skill-list">
+          <span class="skill">Python</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks & Tools</h4>
+        <div class="skill-list">
+          <span class="skill">Flask</span>
+          <span class="skill">SQLite</span>
+          <span class="skill">Twilio API</span>
+          <span class="skill">REST APIs</span>
+          <span class="skill">Git</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Business & Finance</h4>
+        <div class="skill-list">
+          <span class="skill">Financial Analysis</span>
+          <span class="skill">Bookkeeping</span>
+          <span class="skill">Business Strategy</span>
+          <span class="skill">Credit Modelling</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AI Fluency</h4>
+        <div class="skill-list">
+          <span class="skill">Prompt Engineering</span>
+          <span class="skill">AI Product Integration</span>
+          <span class="skill">LLM Workflows</span>
+          <span class="skill">AI-Assisted Development</span>
+          <span class="skill">Automation Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Voice & Presence</h4>
+        <div class="skill-list">
+          <span class="skill">Master of Ceremonies</span>
+          <span class="skill">Public Speaking</span>
+          <span class="skill">Motivational Speaking</span>
+          <span class="skill">Pitching</span>
+          <span class="skill">Hosting</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Advocacy</h4>
+        <div class="skill-list">
+          <span class="skill">Women Empowerment</span>
+          <span class="skill">Youth Advocacy</span>
+          <span class="skill">Community Building</span>
+          <span class="skill">Mentorship</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Focus Areas</h4>
+        <div class="skill-list">
+          <span class="skill">Fintech</span>
+          <span class="skill">Informal Economy</span>
+          <span class="skill">AI Applications</span>
+          <span class="skill">Product Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Let's build something</h2>
+      <p>
+        I'm open to freelance work, collaborations, and conversations with people
+        building interesting things in Africa and beyond. If you've got something
+        worth working on, reach out.
+      </p>
+      <div class="cta-row">
+        <a href="https://www.linkedin.com/in/gershwin-mubaiwa-ab3542361/" target="_blank" class="btn btn-primary">Message me on LinkedIn</a>
+        <a href="mailto:gershwinmubaiwa@gmail.com" class="btn btn-ghost">Send an email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Gershwin Mubaiwa</div>
+  <div style="margin-top:8px">Harare, Zimbabwe · Built from scratch · 2026</div>
+  <div class="footer-mission">Building for the economy the world forgot.</div>
+  <div class="mantra">Climb anyway. 🐊</div>
+  <div class="mantra2">Stick to it.</div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.navlinks a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  });
+});
+</script>
+
+</body>
+</html>
